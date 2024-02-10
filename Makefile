@@ -1,12 +1,22 @@
-all: Processor main
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-Processor: Processor.c Processor.h
-	gcc -c Processor.c -o Processor.o
+all: main test
 
-main: main.c
-	gcc -c main.c -o main.o
-	gcc main.o Processor.o -o main
+main: main.o Processor.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+test: test.o Processor.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+main.o: main.c Processor.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+test.o: test.c Processor.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+Processor.o: Processor.c Processor.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o
-	rm main
+	rm -f *.o main test

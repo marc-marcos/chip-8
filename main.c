@@ -1,14 +1,23 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "Processor.h"
 
+void Usage(char *argv0) {
+    printf("%s: %s program-name\n", argv0, argv0);
+    exit(1);
+}
+
 int main(int argc, char* argv[]) {
+    if (argc != 2) Usage(argv[0]);
+
     struct Processor p = crearProcessorVacio();
+    cargar_programa_en_memoria(argv[1], &p);
 
-    p.screen[0][1] = 1;
+    imprimir_registros(p);
+    ejecutarSiguienteInstruccion(&p);
+    imprimir_registros(p);
+    ejecutarSiguienteInstruccion(&p);
+    imprimir_registros(p);
 
-    // imprimir_pantalla(p.screen);
     
-
-    cargar_programa_en_memoria("SpaceInvaders.ch8", &p);
 }
