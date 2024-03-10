@@ -13,11 +13,10 @@ int main(int argc, char* argv[]) {
     struct Processor p = crearProcessorVacio();
     cargar_programa_en_memoria(argv[1], &p);
 
-    imprimir_registros(p);
+    imprimir_memoria(p);
     ejecutarSiguienteInstruccion(&p);
-    imprimir_registros(p);
+    imprimir_memoria(p);
     ejecutarSiguienteInstruccion(&p);
-    imprimir_registros(p);
-
-    
+    imprimir_memoria(p);
+    ejecutarSiguienteInstruccion(&p);
 }

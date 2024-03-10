@@ -1,13 +1,26 @@
 #include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include "Processor.h"
+#include <assert.h>
+#include "Utils.h"
+
 
 int main() {
-    unsigned char a = 0x12;
-    unsigned char b = 0x34;
+    // Testing UTILS
+    short a = grab_last("bbbb");
+    assert(a == 0xb);
 
-    printf("%x\n", (a<<8)+b);
+    a = grab_last_two("bbbb");
+    assert(a == 0xbb);
+
+    a = grab_last_three("bbbb");
+    assert(a == 0xbbb);
+
+    a = grab_third("abcd");
+    assert(a == 0xc);
+
+    a = grab_second("abcd");
+    assert(a == 0xb);
+
+    printf("\033[0;32m");
+    printf("Tested all functions successfully!\n");
+    printf("\033[0m");
 }

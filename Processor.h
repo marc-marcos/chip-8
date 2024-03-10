@@ -4,8 +4,10 @@
 struct Processor {
     unsigned char registros[16];
     unsigned char memoria[4096];
-    unsigned char stackpointer;
-    unsigned char program_counter;
+    unsigned char register_i;
+    unsigned int stackpointer;
+    unsigned short stack[16];
+    unsigned short program_counter;
     unsigned char screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 };
 
