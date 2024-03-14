@@ -6,6 +6,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <time.h>
+#include <stdlib.h>
 
 struct Processor crearProcessorVacio() {
     struct Processor ret;
@@ -229,5 +231,5 @@ void ejecutarSiguienteInstruccion(struct Processor *p) {
         // TODO: Implementar lo de los sprites
     }
 
-    if (instruccion_convertida[0] == 'e')
+    if (instruccion_convertida[0] == 'e') {}
 }
