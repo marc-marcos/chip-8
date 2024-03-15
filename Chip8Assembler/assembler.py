@@ -73,6 +73,42 @@ def traducir_instruccion(instruccion_separada):
     elif ("SKNP" in instruccion_separada[0]):
         return f"e{instruccion_separada[-1][-2]}a1"
 
+    elif ("LD" in instruccion_separada[0]):
+        if ("V" in instruccion_separada[1]):
+            if ("V" in instruccion_separada[2]): # LD Vx, Vy
+                return f"8{instruccion_separada[1][-2]}{instruccion_separada[2][-2]}0"
+
+            elif ("DT" in instruccion_separada[2]): # LD Vx, DT
+                return f"f{instruccion_separada[1][-2]}07"
+
+            elif ("K" in instruccion_separada[2]): # LD Vx, K
+                return f"f0{instruccion_separada[1][-2]}a"
+            
+            elif ("[I]" in instruccion_separada[2]): # LD Vx, [I]
+                return f"f{instruccion_separada[1][-3]}55"
+            
+            else: # LD Vx, by
+                return f"6{instruccion_separada[1][-2]}{instruccion_separada[-1][-3]}{instruccion_separada[-1][-2]}"
+        
+        else: # Not a register in the first operand
+            if ("I" in instruccion_separada[1]): # LD I, addr
+                return f"a{instruccion_separada[-1][:-1]}"
+
+            elif ("DT" in instruccion_separada[1]): # LD DT, Vx
+                return f"f{instruccion_separada[-1][-2]}15"
+
+            elif ("ST" in instruccion_separada[1]): # LD ST, Vx
+                return f"f{instruccion_separada[-1][-2]}18"
+
+            elif ("F" in instruccion_separada[1]): # LD F, Vx
+                return f"f{instruccion_separada[-1][-2]}29"
+
+            elif ("B" in instruccion_separada[1]): # LD B, Vx
+                return f"f{instruccion_separada[-1][-2]}33"
+
+            elif ("[I]" in instruccion_separada[1]): # LD [I], Vx
+                return f"f{instruccion_separada[-1][-2]}55"
+
     # Default case
 
     else:
@@ -92,7 +128,7 @@ if __name__=='__main__':
             output += traducir_instruccion(separar_operandos(line))
 
     with open(sys.argv[2], 'w') as file:
-        file.write(output)
+        file.write(output.lower())
     
     print(output)
         
