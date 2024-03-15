@@ -1,3 +1,4 @@
 *.o
 main
 *.ch8
+*.hex
